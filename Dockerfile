@@ -1,14 +1,13 @@
-# Use a JDK base image
-FROM openjdk:17-jdk-alpine
-
-# Set the working directory
+# Stage 1: Build the JAR
+FROM maven:3.8.5-openjdk-17 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy your jar file into the image
-COPY target/*.jar app.jar
+# Stage 2: Create the runtime image
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 
-# Expose port 8080
 EXPOSE 8080
-
-# Run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar"]
