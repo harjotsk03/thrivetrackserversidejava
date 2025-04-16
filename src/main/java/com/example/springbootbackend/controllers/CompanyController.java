@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -29,6 +31,27 @@ public class CompanyController {
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Company>> getCompanies() {
+        List<Company> companies = companyService.getAll();
+        if (companies.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(companies);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Company>> searchCompanies(@RequestParam(value = "search", required = false) String search) {
+        List<Company> companies;
+        if (search == null || search.isEmpty()) {
+            companies = companyService.getAll();
+        } else {
+            companies = companyService.searchByName(search);
+        }
+        return ResponseEntity.ok(companies);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Company> getCompanyById(@PathVariable String id) {
@@ -87,6 +110,10 @@ public class CompanyController {
         company.setCreatedAt(createdDate);
         company.setEmployeeCount(0);
         companyService.save(company);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Company created successfully!");
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Company created successfully!");
+        response.put("companyId", company.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
     }
 }

@@ -10,7 +10,6 @@ public class User {
     @Id
     private String id;
 
-    private String username;
     private String email;
     private String password;
     private String name;
@@ -19,13 +18,13 @@ public class User {
     private String team;
     private String jobTitle;
     private Date createdAt;
+    private String companyName;
 
     private String profilePhoto = "https://studyspotr.s3.us-east-2.amazonaws.com/defaultProfile.jpg";
 
     public User() {}
 
-    public User(String username, String email, String password, String name, Role role, String jobTitle, String team, String companyId) {
-        this.username = username;
+    public User( String email, String password, String name, Role role, String jobTitle, String team, String companyId, String companyName) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -33,6 +32,7 @@ public class User {
         this.jobTitle = jobTitle;
         this.companyId = companyId;
         this.team = team;
+        this.companyName = companyName;
     }
 
     // Getters & Setters
@@ -42,12 +42,6 @@ public class User {
     }
 
     public void setId(String id) { this.id = id; }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) { this.username = username; }
 
     public String getEmail() {
         return email;
@@ -107,5 +101,9 @@ public class User {
 
     public void setCreatedAt(Date newTime){
         this.createdAt = newTime;
+    }
+
+    public String getCompanyName(){
+        return this.companyName;
     }
 }

@@ -12,26 +12,26 @@ public class UserDTO {
     private String id;
     private String name;
     private String email;
-    private String username;
     private String profilePhoto;
     @Id
     private String companyId;
     private Role role;
     private String team;
     private String jobTitle;
+    private String companyName;
     private Date createdAt;
 
     public UserDTO(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        this.username = user.getUsername();
         this.profilePhoto = user.getProfilePhoto();
         this.companyId = user.getCompanyId();
         this.role = user.getRole();
         this.team = user.getTeam();
         this.jobTitle = user.getJobTitle();
         this.createdAt = user.getCreatedAt();
+        this.companyName = user.getCompanyName();
     }
 
     public String getId(){
@@ -42,9 +42,6 @@ public class UserDTO {
     }
     public String getEmail(){
         return this.email;
-    }
-    public String getUsername(){
-        return this.username;
     }
     public String getProfilePhoto(){
         return this.profilePhoto;
@@ -63,5 +60,9 @@ public class UserDTO {
     }
     public Role getRole(){
         return this.role;
+    }
+
+    public String getCompanyName(){
+        return this.companyName;
     }
 }

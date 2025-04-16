@@ -33,4 +33,12 @@ public class CompanyService {
     public Company save(Company company) {
         return companyRepository.save(company);
     }
+
+    public List<Company> getAll(){
+        return companyRepository.findAll();
+    }
+
+    public List<Company> searchByName(String keyword) {
+        return companyRepository.findByNameContainingIgnoreCase(keyword);
+    }
 }

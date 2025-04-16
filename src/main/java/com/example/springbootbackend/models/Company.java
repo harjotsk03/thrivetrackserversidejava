@@ -27,7 +27,7 @@ public class Company {
     private String phoneNumber;
     private Date createdAt;
 
-    private String profilePhoto = "https://studyspotr.s3.us-east-2.amazonaws.com/defaultProfile.jpg";
+    private String profilePhoto = "https://studyspotr.s3.us-east-2.amazonaws.com/defaultCompanyImage.png";
     public Company() {}
 
     public Company(String name) {
